@@ -19,13 +19,13 @@ locals {
     # resource definition
     linux_virtual_machine = {
       name                            = ""
-      computer_name = ""
-      admin_password = ""
-      license_type = null
-      allow_extension_operations = false
-      availability_set_id = null
-      custom_data = null
-      dedicated_host_id = null
+      computer_name                   = ""
+      admin_password                  = ""
+      license_type                    = null
+      allow_extension_operations      = false
+      availability_set_id             = null
+      custom_data                     = null
+      dedicated_host_id               = null
       disable_password_authentication = true
       encryption_at_host_enabled      = false
       eviction_policy                 = null
@@ -38,48 +38,65 @@ locals {
       proximity_placement_group_id    = null
       secure_boot_enabled             = null
       source_image_id                 = null
-      user_data = null
-      vtpm_enabled = null
-      virtual_machine_scale_set_id = null
-      zone = 1
+      user_data                       = null
+      vtpm_enabled                    = null
+      virtual_machine_scale_set_id    = null
+      zone                            = 1
       admin_ssh_key                   = {}
       os_disk = {
-        name = ""
-        caching = "None"
-        disk_encryption_set_id = null
-        disk_size_gb = null
+        name                      = ""
+        caching                   = "None"
+        disk_encryption_set_id    = null
+        disk_size_gb              = null
         write_accelerator_enabled = false
-        disk_encryption_set_id = null
-        diff_disk_settings = {}
+        disk_encryption_set_id    = null
+        diff_disk_settings        = {}
       }
-      additional_capabilities         = {}
-      boot_diagnostics                = {}
-      identity                        = {}
-      plan                            = {}
-      secret                          = {}
-      source_image_reference          = {}
-      tags                            = {}
+      additional_capabilities = {
+        ultra_ssd_enabled = false
+      }
+      boot_diagnostics = {
+        storage_account_uri = ""
+      }
+      identity = {
+        type         = ""
+        identity_ids = null
+      }
+      plan   = {}
+      secret = {}
+      source_image_reference = {
+        publisher = ""
+        offer     = null
+        sku       = null
+        version   = null
+      }
+      tags = {}
     }
     managed_disk = {
-      name = ""
-      disk_encryption_set_id = null
-      hyper_v_generation = null
-      image_reference_id = null
-      logical_sector_size = null
-      os_type = null
-      source_resource_id = null
-      source_uri = null
-      storage_account_id  = null
-      tier = null
-      max_shares = null
-      trusted_launch_enabled = false
-      on_demand_bursting_enabled = false
-      network_access_policy = null
+      name                          = ""
+      disk_encryption_set_id        = null
+      zone                          = null
+      hyper_v_generation            = null
+      image_reference_id            = null
+      logical_sector_size           = null
+      os_type                       = null
+      source_resource_id            = null
+      source_uri                    = null
+      storage_account_id            = null
+      tier                          = null
+      max_shares                    = null
+      trusted_launch_enabled        = false
+      on_demand_bursting_enabled    = false
+      network_access_policy         = null
       public_network_access_enabled = false
-      encryption_settings = {}
+      encryption_settings = {
+        enabled             = false
+        disk_encryption_key = {}
+        key_encryption_key  = {}
+      }
     }
     virtual_machine_data_disk_attachment = {
-      create_option = null
+      create_option             = null
       write_accelerator_enabled = null
     }
   }
@@ -99,7 +116,15 @@ locals {
     linux_virtual_machine => merge(
       local.linux_virtual_machine_values[linux_virtual_machine],
       {
-        for config in ["os_disk", "source_image_reference"] :
+        for config in [
+          "os_disk",
+          "additional_capabilities",
+          "boot_diagnostics",
+          "identity",
+          "plan",
+          "secret",
+          "source_image_reference"
+        ] :
         config => merge(local.default.linux_virtual_machine[config], local.linux_virtual_machine_values[linux_virtual_machine][config])
       },
       {
