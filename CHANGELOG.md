@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1](https://github.com/T-Systems-MMS/terraform-azurerm-compute/tree/1.0.1) (2022-05-10)
+
+[Full Changelog](https://github.com/T-Systems-MMS/terraform-azurerm-compute/compare/1.0.0...1.0.1)
+
 ## [1.0.0](https://github.com/T-Systems-MMS/terraform-azurerm-compute/tree/1.0.0) (2022-05-10)
 
 [Full Changelog](https://github.com/T-Systems-MMS/terraform-azurerm-compute/compare/b5b5566511fd11fe5d292cde3ffa0f537ffe48cd...1.0.0)
