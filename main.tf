@@ -148,7 +148,7 @@ resource "azurerm_managed_disk" "managed_disk" {
   public_network_access_enabled = local.managed_disk[each.key].public_network_access_enabled
 
   dynamic "encryption_settings" {
-    for_each = local.managed_disk[each.key].encryption_settings.enabled != true ? [1] : []
+    for_each = local.managed_disk[each.key].encryption_settings.enabled != false ? [1] : []
 
     content {
       enabled = local.managed_disk[each.key].encryption_settings.enabled
