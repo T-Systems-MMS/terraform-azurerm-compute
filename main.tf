@@ -66,8 +66,12 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     }
   }
 
-  additional_capabilities {
-    ultra_ssd_enabled = local.linux_virtual_machine[each.key].additional_capabilities.ultra_ssd_enabled
+  dynamic "additional_capabilities" {
+    for_each = local.linux_virtual_machine[each.key].additional_capabilities.ultra_ssd_enabled != false ? [1] : []
+
+    content {
+      ultra_ssd_enabled = local.linux_virtual_machine[each.key].additional_capabilities.ultra_ssd_enabled
+    }
   }
 
   dynamic "boot_diagnostics" {
