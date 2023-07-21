@@ -20,7 +20,7 @@ locals {
     linux_virtual_machine = {
       name                            = ""
       computer_name                   = ""
-      admin_password                  = ""
+      admin_password                  = null
       license_type                    = null
       allow_extension_operations      = false
       availability_set_id             = null
